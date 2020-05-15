@@ -12,6 +12,11 @@ class _OrderPageState extends State<OrderPage> {
       appBar: AppBar(
         title: Text('我的订单'),
       ),
+      body: ListView(
+        children: <Widget>[
+
+        ],
+      ),
     );
   }
 }

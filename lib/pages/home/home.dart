@@ -32,8 +32,8 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.favorite_border, color: Colors.white),
-            onPressed: () => Navigator.pushNamed(context, 'myOrder'),
+            icon: Icon(Icons.live_tv, color: Colors.white),
+            onPressed: () => Navigator.pushNamed(context, 'bilibili'),
           )
         ],
       ),
@@ -58,43 +58,17 @@ class _HomePageState extends State<HomePage> {
               }).toList(),
             ),
           ),
-          NavItem(
-            routeName: 'play',
-            arguments: {},
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Icon(Icons.calendar_today),
-                  Text('日历')
-                ],
-              ),
-            ),
-          ),
-          NavItem(
-            routeName: 'bilibili',
-            arguments: {},
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Icon(Icons.tv),
-                  Text('bilibili')
-                ],
-              ),
-            ),
-          ),
           SizedBox(height: 10,),
-          Center(
-            child: RaisedButton(
-              child: Text('Login'),
-              onPressed: () => print('login'),
-            ),
-          )
+          _goodList()
         ],
       ),
     );
   }
+
+  Widget _goodList() {
+    return Column(children: <Widget>[
+
+    ],);
+  }
+
 }

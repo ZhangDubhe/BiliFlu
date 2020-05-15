@@ -1,0 +1,23 @@
+{
+  "list": [
+    {
+      "name": "2233娘虚拟手办",
+      "pic": "https://static.dubheee.cn/Biliflu/2233.png",
+      "videoUrl": "",
+      "price": 10000,
+      "previews": [
+        "https://static.dubheee.cn/Biliflu/2233.png"
+      ]
+    },
+    {
+      "name": "爱蜜莉雅糖虚拟手办",
+      "pic": "https://static.dubheee.cn/Biliflu/emilia_1.png",
+      "videoUrl": "",
+      "price": 10000,
+      "previews": [
+        "https://static.dubheee.cn/Biliflu/emilia_1.png",
+        "https://static.dubheee.cn/Biliflu/emilia_2.png"
+      ]
+    }
+  ]
+}

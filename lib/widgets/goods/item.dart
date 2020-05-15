@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class GoodItem extends StatelessWidget {
   String pic;
   String name;
-  String prize;
+  String price;
   String videoUrl;
 
   GoodItem({
-    this.pic, this.name, this.prize, this.videoUrl
+    this.pic, this.name, this.price, this.videoUrl
   });
 
   @override
@@ -21,7 +21,7 @@ class GoodItem extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text(name, style: Theme.of(context).textTheme.headline3,),
-                Text('$prize円', style: Theme.of(context).textTheme.bodyText1,),
+                Text('$price円', style: Theme.of(context).textTheme.bodyText1,),
               ],
             ),
           )
