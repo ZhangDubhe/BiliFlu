@@ -1,17 +1,62 @@
+import 'package:bilibiliflu/models/good.dart';
+import 'package:bilibiliflu/pages/goods/good_item.dart';
+import 'package:bilibiliflu/services/global_service_center.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-class GoodList extends StatefulWidget {
+
+class GoodListWidget extends StatefulWidget {
+  List<Good> goodList = [];
+
+  GoodListWidget({
+    this.goodList
+  });
+
   @override
-  GoodListState createState() => new GoodListState();
+  GoodListWidgetState createState() => new GoodListWidgetState();
 }
 
-class GoodListState extends State<GoodList> {
+class GoodListWidgetState extends State<GoodListWidget> {
+  bool isInGridMode = false;
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(''),
-      ),
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Expanded(child: Container(),),
+            Icon(isInGridMode ? Icons.view_module : Icons.view_list),
+            Switch(
+              value: isInGridMode,
+              onChanged: (change) {
+                print('InGridMode: $change');
+                print('InGridMode: $isInGridMode');
+                isInGridMode = change;
+                setState(() {
+                });
+              },
+            ),
+          ],
+        ),
+        isInGridMode ? _gridMode() : _listMode()
+      ],
+    );
+  }
+
+  Widget _listMode() {
+    return Column(
+      children: widget.goodList.map((c) => GoodItem(good: c,)).toList(),
+    );
+  }
+
+  Widget _gridMode() {
+    return Wrap(
+      children: widget.goodList.map((c) {
+        return Container(
+          width: MediaQuery.of(context).size.width / 2,
+          child: GoodItem(good: c, gridMode: true),
+        );
+      }).toList(),
     );
   }
   @override
@@ -27,7 +72,7 @@ class GoodListState extends State<GoodList> {
   }
 
   @override
-  void didUpdateWidget(GoodList oldWidget) {
+  void didUpdateWidget(GoodListWidget oldWidget) {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
@@ -36,13 +81,5 @@ class GoodListState extends State<GoodList> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-  }
-}
-
-class ListViewModel {
-  fetch () async {
-    var res = await rootBundle.load('assets/data/goods.json');
-    print(res);
-
   }
 }

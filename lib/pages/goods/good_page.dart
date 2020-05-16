@@ -24,7 +24,13 @@ class GoodPageState extends State<GoodPage> {
         children: <Widget>[
           ListView(
             children: <Widget>[
-              Image.network(widget.goodItem?.pic, fit: BoxFit.cover,),
+              Container(
+                color: Colors.black12,
+                child: Image.network(widget.goodItem?.pic,
+                  fit: BoxFit.contain,
+                  height: 400,
+                ),
+              ),
               SizedBox(height: 30,),
               Padding(
                 padding: EdgeInsets.all(20),
@@ -44,15 +50,19 @@ class GoodPageState extends State<GoodPage> {
             ],
           ),
           Positioned(bottom: 0,left: 0,right: 0,
-          child: Container(
-            height: 55,
-            child: Row(
-              children: <Widget>[
-                RaisedButton(
-                  child: Text('购买'),
-                )
-              ],
-            ),
+          child: Row(
+            children: <Widget>[
+              Container(
+                height: 55,
+                child: Row(
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text('购买'),
+                    )
+                  ],
+                ),
+              ),
+            ],
           ),)
         ],
       ),

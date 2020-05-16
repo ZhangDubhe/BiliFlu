@@ -4,7 +4,7 @@
       "name": "2233娘虚拟手办",
       "pic": "https://static.dubheee.cn/Biliflu/2233.png",
       "videoUrl": "",
-      "price": 10000,
+      "price": 23300,
       "previews": [
         "https://static.dubheee.cn/Biliflu/2233.png"
       ]
@@ -16,7 +16,17 @@
       "price": 10000,
       "previews": [
         "https://static.dubheee.cn/Biliflu/emilia_1.png",
-        "https://static.dubheee.cn/Biliflu/emilia_2.png"
+        "https://static.dubheee.cn/Biliflu/emilia_2.png",
+        "https://static.dubheee.cn/Biliflu/emilia_3.png"
+      ]
+    },
+    {
+      "name": "英梨梨 路人女主",
+      "pic": "https://static.dubheee.cn/Biliflu/yll.png",
+      "videoUrl": "",
+      "price": 9000,
+      "previews": [
+        "https://static.dubheee.cn/Biliflu/yll.png"
       ]
     }
   ]

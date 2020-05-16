@@ -1,3 +1,7 @@
+import 'package:bilibiliflu/models/good.dart';
+import 'package:bilibiliflu/pages/goods/good_list.dart';
+import 'package:bilibiliflu/pages/goods/good_view_model.dart';
+import 'package:bilibiliflu/services/global_service_center.dart';
 import 'package:bilibiliflu/widgets/nav_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +26,7 @@ class _HomePageState extends State<HomePage> {
     '11.png',
     '12.png',
   ];
+  GoodViewModel _goodViewModel = GoodViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -59,16 +64,25 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(height: 10,),
-          _goodList()
+          _goodList(),
         ],
       ),
     );
   }
 
   Widget _goodList() {
-    return Column(children: <Widget>[
-
-    ],);
+    return FutureBuilder(
+      future: _goodViewModel.fetch(),
+      builder: (BuildContext context, AsyncSnapshot<List<Good>> snapshot) {
+        if (snapshot.hasData) {
+          return GoodListWidget(goodList: snapshot.data??[],);
+        } else if (snapshot.hasError) {
+          return Container();
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
   }
 
 }
