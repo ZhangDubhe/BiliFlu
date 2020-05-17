@@ -1,5 +1,7 @@
 import 'package:bilibiliflu/models/good.dart';
+import 'package:bilibiliflu/global/themes.dart';
 import 'package:bilibiliflu/services/global_service_center.dart';
+import 'package:bilibiliflu/supplyment/cut_border_shape.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,35 +23,42 @@ class GoodItemState extends State<GoodItem> {
   Widget build(BuildContext context) {
     if (widget.good == null) return Container();
     return Container(
-      margin: EdgeInsets.only(top: 15, bottom: 15),
-      color: Theme.of(context).backgroundColor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Image.network('${widget.good.pic}?x-oss-process=style/480h',
-            fit: BoxFit.cover,
-            height: widget.gridMode ? 200 : 400,
-            alignment: Alignment.topCenter,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 15,
-              horizontal: 20
-            ),
-            child: Row(
+      decoration: BoxDecoration(
+        boxShadow: GlobalTheme.commonShadow(),
+        color: Theme.of(context).backgroundColor,
+        borderRadius: GlobalTheme.commonRadius(radius: 0),
+      ),
+      child: Ink(
+        child: InkWell(
+          onTap: () => RouterService.resolve('goodPage', {
+            'good': widget.good
+          }, context),
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Expanded(child: Text('${widget.good.name}', overflow: TextOverflow.ellipsis,)),
-                RaisedButton(
-                  child: Text('💰${(widget.good.price ~/ 100)}'),
-                  padding: EdgeInsets.all(0),
-                  onPressed: () => RouterService.resolve('goodPage', {
-                    'good': widget.good
-                  }, context),
+                Image.network('${widget.good.pic}?x-oss-process=style/480h',
+                  fit: BoxFit.cover,
+                  height: widget.gridMode ? 200 : 400,
+                  alignment: Alignment.topCenter,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15,
+                    horizontal: 20
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text('${widget.good.name}', style: Theme.of(context).textTheme.subtitle1, overflow: TextOverflow.ellipsis,),
+                      Text('￥${(widget.good.price ~/ 100)}', style: Theme.of(context).textTheme.bodyText1.copyWith(color: Colors.pinkAccent[100])),
+                    ],
+                  ),
                 )
               ],
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

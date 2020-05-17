@@ -51,9 +51,11 @@ class GoodListWidgetState extends State<GoodListWidget> {
 
   Widget _gridMode() {
     return Wrap(
+      runSpacing: 15,
+      spacing: 10,
       children: widget.goodList.map((c) {
         return Container(
-          width: MediaQuery.of(context).size.width / 2,
+          width: (MediaQuery.of(context).size.width / 2) - 10,
           child: GoodItem(good: c, gridMode: true),
         );
       }).toList(),

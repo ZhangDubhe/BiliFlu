@@ -1,3 +1,4 @@
+import 'package:bilibiliflu/global/themes.dart';
 import 'package:bilibiliflu/models/good.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +32,10 @@ class GoodPageState extends State<GoodPage> {
                   height: 400,
                 ),
               ),
-              SizedBox(height: 30,),
               Padding(
                 padding: EdgeInsets.all(20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Text('${widget.goodItem?.name}', style: Theme.of(context).textTheme.subtitle1,),
                     Text('${widget.goodItem?.name}', style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.pink)),
@@ -50,19 +51,28 @@ class GoodPageState extends State<GoodPage> {
             ],
           ),
           Positioned(bottom: 0,left: 0,right: 0,
-          child: Row(
-            children: <Widget>[
-              Container(
-                height: 55,
-                child: Row(
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text('购买'),
-                    )
-                  ],
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              boxShadow: GlobalTheme.commonShadow()
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width * 3 / 5,
+                  child: Center(
+                    child: SafeArea(child: Text('￥${(widget.goodItem.price ~/ 100)}')),
+                  ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: RaisedButton(
+                    onPressed: () => print('buy'),
+                    padding: EdgeInsets.only(top: 8, bottom: 8),
+                      child: Center(child: SafeArea(child: Text('购买', style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.white),)))),
+                ),
+              ],
+            ),
           ),)
         ],
       ),
