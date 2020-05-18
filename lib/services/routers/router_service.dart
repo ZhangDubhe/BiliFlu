@@ -1,6 +1,7 @@
 import 'package:bilibiliflu/pages/goods/good_page.dart';
 import 'package:bilibiliflu/pages/home/home.dart';
 import 'package:bilibiliflu/pages/play/play.dart';
+import 'package:bilibiliflu/pages/user_center/buy_good_item.dart';
 import 'package:bilibiliflu/pages/user_center/orders.dart';
 import 'package:bilibiliflu/pages/web/web.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,6 +31,8 @@ class RouterService{
       'home': (code, para, _) => HomePage(title: para['title'],),
       'play': (code, para, _) => PlayPage(),
       'goodPage': (code, para, _) => GoodPage(goodItem: para['good'],),
+      'myOrder': (code, para, _) => OrderPage(),
+      'buyedGood': (code, para, _) => BuyGoodItem(goodItem: para['good'],),
     };
     _route.register(_mapping);
   }

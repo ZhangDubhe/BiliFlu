@@ -45,7 +45,9 @@ class GoodListWidgetState extends State<GoodListWidget> {
 
   Widget _listMode() {
     return Column(
-      children: widget.goodList.map((c) => GoodItem(good: c,)).toList(),
+      children: widget.goodList.map((c) => GoodItem(
+      good: c,
+      bindTap: _gotoDetail,)).toList(),
     );
   }
 
@@ -56,11 +58,18 @@ class GoodListWidgetState extends State<GoodListWidget> {
       children: widget.goodList.map((c) {
         return Container(
           width: (MediaQuery.of(context).size.width / 2) - 10,
-          child: GoodItem(good: c, gridMode: true),
+          child: GoodItem(good: c, bindTap: _gotoDetail, gridMode: true),
         );
       }).toList(),
     );
   }
+
+  void _gotoDetail(Good good) {
+    RouterService.resolve('goodPage', {
+      'good': good
+    }, context);
+  }
+
   @override
   void initState() {
     // TODO: implement initState

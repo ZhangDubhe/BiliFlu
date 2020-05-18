@@ -1,5 +1,6 @@
 import 'package:bilibiliflu/global/themes.dart';
 import 'package:bilibiliflu/models/good.dart';
+import 'package:bilibiliflu/services/global_service_center.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -67,7 +68,7 @@ class GoodPageState extends State<GoodPage> {
                 ),
                 Expanded(
                   child: RaisedButton(
-                    onPressed: () => print('buy'),
+                    onPressed: () => buyGoodItem(),
                     padding: EdgeInsets.only(top: 8, bottom: 8),
                       child: Center(child: SafeArea(child: Text('购买', style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.white),)))),
                 ),
@@ -78,6 +79,13 @@ class GoodPageState extends State<GoodPage> {
       ),
     );
   }
+
+  buyGoodItem() {
+    RouterService.resolve('buyedGood', {
+      'good': widget.goodItem
+    }, context);
+  }
+
   @override
   void initState() {
     // TODO: implement initState

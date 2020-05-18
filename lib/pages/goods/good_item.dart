@@ -8,10 +8,11 @@ import 'package:flutter/material.dart';
 class GoodItem extends StatefulWidget {
   Good good;
   bool gridMode;
-
+  Function bindTap;
   GoodItem({
     this.good,
-    this.gridMode = false
+    this.gridMode = false,
+    this.bindTap
   });
 
   @override
@@ -30,9 +31,7 @@ class GoodItemState extends State<GoodItem> {
       ),
       child: Ink(
         child: InkWell(
-          onTap: () => RouterService.resolve('goodPage', {
-            'good': widget.good
-          }, context),
+          onTap: () => widget.bindTap,
           child: Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -1,3 +1,6 @@
+import 'package:bilibiliflu/models/good.dart';
+import 'package:bilibiliflu/pages/goods/good_item.dart';
+import 'package:bilibiliflu/services/global_service_center.dart';
 import 'package:flutter/material.dart';
 
 class OrderPage extends StatefulWidget {
@@ -6,6 +9,7 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
+  List<Good> _goodList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,10 +17,17 @@ class _OrderPageState extends State<OrderPage> {
         title: Text('我的订单'),
       ),
       body: ListView(
-        children: <Widget>[
-
-        ],
+        children: _goodList.map((c) => GoodItem(
+          good: c,
+          bindTap: gotoBuyItem,
+        )).toList(),
       ),
     );
+  }
+
+  void gotoBuyItem(Good c) {
+    RouterService.resolve('buyedGood', {
+      'good': c
+    }, context);
   }
 }
