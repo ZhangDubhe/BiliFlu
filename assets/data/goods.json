@@ -27,7 +27,12 @@
       "price": 9000,
       "previews": [
         "https://static.dubheee.cn/Biliflu/yll.png"
-      ]
+      ],
+      "suits": [{
+        "id": "suit01",
+        "name": "圣诞套装",
+        "pic": "https://static.dubheee.cn/Biliflu/yll.png"
+      }]
     }
   ]
 }

@@ -31,7 +31,7 @@ class GoodItemState extends State<GoodItem> {
       ),
       child: Ink(
         child: InkWell(
-          onTap: () => widget.bindTap,
+          onTap: widget.bindTap,
           child: Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

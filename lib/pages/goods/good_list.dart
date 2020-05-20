@@ -47,7 +47,7 @@ class GoodListWidgetState extends State<GoodListWidget> {
     return Column(
       children: widget.goodList.map((c) => GoodItem(
       good: c,
-      bindTap: _gotoDetail,)).toList(),
+      bindTap: () => _gotoDetail(c),)).toList(),
     );
   }
 
@@ -58,7 +58,7 @@ class GoodListWidgetState extends State<GoodListWidget> {
       children: widget.goodList.map((c) {
         return Container(
           width: (MediaQuery.of(context).size.width / 2) - 10,
-          child: GoodItem(good: c, bindTap: _gotoDetail, gridMode: true),
+          child: GoodItem(good: c, bindTap: () => _gotoDetail(c), gridMode: true),
         );
       }).toList(),
     );

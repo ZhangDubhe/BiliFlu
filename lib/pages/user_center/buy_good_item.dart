@@ -38,6 +38,8 @@ class BuyGoodItemState extends State<BuyGoodItem> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text('${widget.goodItem.name}'),
+                SizedBox(height: 30,),
+                Text('换装', style: Theme.of(context).textTheme.subtitle2,),
                 SizedBox(height: 20,),
                 _switchDecoration()
               ],
@@ -49,7 +51,25 @@ class BuyGoodItemState extends State<BuyGoodItem> {
   }
 
   Widget _switchDecoration() {
-    return Container();
+    return Wrap(
+      spacing: 10,
+      runSpacing: 10,
+      children: widget.goodItem.suits.map((e) {
+        return ClipOval(
+          child: Container(
+            color: Colors.pinkAccent,
+            padding: EdgeInsets.all(4),
+            child: ClipOval(
+              child: Image.network(e.pic,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
   }
 
   void _bindChangeDecoration() {

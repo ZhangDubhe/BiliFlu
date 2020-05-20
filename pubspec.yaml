@@ -33,7 +33,7 @@ dependencies:
 
   # 状态管理库
   provide: 1.0.2
-
+  rxdart: ^0.23.0
   # # WebView库
   webview_flutter: 0.3.21
 

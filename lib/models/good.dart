@@ -1,4 +1,5 @@
 import 'dart:convert' show json;
+import 'package:bilibiliflu/models/suit.dart';
 
 class GoodList {
 
@@ -23,16 +24,18 @@ class GoodList {
 }
 
 class Good {
-
+  String id;
   int price;
   String name;
   String pic;
   String videoUrl;
   List<String> previews;
+  List<Suit> suits;
 
-  Good.fromParams({this.price, this.name, this.pic, this.videoUrl, this.previews});
+  Good.fromParams({this.id, this.price, this.name, this.pic, this.videoUrl, this.previews, this.suits});
 
   Good.fromJson(jsonRes) {
+    id = jsonRes['id'];
     price = jsonRes['price'];
     name = jsonRes['name'];
     pic = jsonRes['pic'];
@@ -42,11 +45,18 @@ class Good {
     for (var previewsItem in previews == null ? [] : jsonRes['previews']){
       previews.add(previewsItem);
     }
+
+    suits = jsonRes['suits'] == null ? null : [];
+
+    for (var suitsItem in suits == null ? [] : jsonRes['suits']){
+      suits.add(suitsItem == null ? null : new Suit.fromJson(suitsItem));
+    }
   }
 
   @override
   String toString() {
-    return '{"price": $price,"name": ${name != null?'${json.encode(name)}':'null'},"pic": ${pic != null?'${json.encode(pic)}':'null'},"videoUrl": ${videoUrl != null?'${json.encode(videoUrl)}':'null'},"previews": $previews}';
+    return '{"id": ${id != null?'${json.encode(id)}':'null'}, "price": $price,"name": ${name != null?'${json.encode(name)}':'null'},"pic": ${pic != null?'${json.encode(pic)}':'null'},"videoUrl": ${videoUrl != null?'${json.encode(videoUrl)}':'null'},"previews": $previews,"suits": $suits}';
   }
 }
+
 
