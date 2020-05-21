@@ -39,7 +39,7 @@ class BuyGoodItemState extends State<BuyGoodItem> {
               children: <Widget>[
                 Text('${widget.goodItem.name}'),
                 SizedBox(height: 30,),
-                Text('换装', style: Theme.of(context).textTheme.subtitle2,),
+                (widget.goodItem.suits??[]).length > 0 ? Text('换装', style: Theme.of(context).textTheme.subtitle2,) : Container(),
                 SizedBox(height: 20,),
                 _switchDecoration()
               ],
@@ -54,7 +54,7 @@ class BuyGoodItemState extends State<BuyGoodItem> {
     return Wrap(
       spacing: 10,
       runSpacing: 10,
-      children: widget.goodItem.suits.map((e) {
+      children: (widget.goodItem.suits??[]).map((e) {
         return ClipOval(
           child: Container(
             color: Colors.pinkAccent,
