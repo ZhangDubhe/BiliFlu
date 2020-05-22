@@ -1,6 +1,7 @@
 import 'package:bilibiliflu/models/good.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class BuyGoodItem extends StatefulWidget {
   Good goodItem;
@@ -14,8 +15,7 @@ class BuyGoodItem extends StatefulWidget {
 }
 
 class BuyGoodItemState extends State<BuyGoodItem> {
-
-
+  BehaviorSubject<int> _selectedIndex = BehaviorSubject.seeded(0);
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -51,21 +51,31 @@ class BuyGoodItemState extends State<BuyGoodItem> {
   }
 
   Widget _switchDecoration() {
+    int index = 0;
     return Wrap(
       spacing: 10,
       runSpacing: 10,
       children: (widget.goodItem.suits??[]).map((e) {
-        return ClipOval(
-          child: Container(
-            color: Colors.pinkAccent,
-            padding: EdgeInsets.all(4),
-            child: ClipOval(
-              child: Image.network(e.pic,
-                width: 60,
-                height: 60,
-                fit: BoxFit.cover,
+        index++;
+        return GestureDetector(
+          onTap: () => _selectedIndex.add(index - 1),
+          child: Column(
+            children: <Widget>[
+              ClipOval(
+                child: Container(
+                  color: Colors.pinkAccent,
+                  padding: EdgeInsets.all(4),
+                  child: ClipOval(
+                    child: Image.network(e.pic,
+                      width: 60,
+                      height: 60,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
-            ),
+              Text('${e.name}')
+            ],
           ),
         );
       }).toList(),

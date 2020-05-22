@@ -18,6 +18,7 @@ class GoodPage extends StatefulWidget {
 
 class GoodPageState extends State<GoodPage> {
   BehaviorSubject<bool> isPaying = BehaviorSubject.seeded(false);
+  BehaviorSubject<bool> isSuccess = BehaviorSubject.seeded(false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +31,7 @@ class GoodPageState extends State<GoodPage> {
             children: <Widget>[
               Container(
                 color: Colors.black12,
-                child: Image.network(widget.goodItem?.pic,
+                child: Image.network('${widget.goodItem?.pic}?x-oss-process=style/480h',
                   fit: BoxFit.contain,
                   height: 400,
                 ),
@@ -48,7 +49,7 @@ class GoodPageState extends State<GoodPage> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
                 child: Column(
-                  children: (widget.goodItem?.previews??[]).map((c) => Image.network(c, fit: BoxFit.cover,)).toList(),
+                  children: (widget.goodItem?.previews??[]).map((c) => Image.network('$?x-oss-process=style/480h', fit: BoxFit.cover,)).toList(),
                 )
               ),
             ],
@@ -79,7 +80,7 @@ class GoodPageState extends State<GoodPage> {
                           if (snapshot.data) {
                             return Text('购买中');
                           }
-                          return Text('购买', style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.white),);
+                          return Text('立即下单！', style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.white),);
                         }
                       )))),
                 ),
@@ -103,6 +104,24 @@ class GoodPageState extends State<GoodPage> {
                 return Container();
               }
             }
+          ),
+          StreamBuilder<Object>(
+              stream: isSuccess,
+              builder: (context, snapshot) {
+                if(snapshot.data) {
+                  return Center(
+                    child: Container(
+                        padding: EdgeInsets.all(40),
+                        decoration: BoxDecoration(
+                            color: Colors.black54,
+                            borderRadius: GlobalTheme.commonRadius()
+                        ),
+                        child: Text('购买成功！', style: Theme.of(context).textTheme.bodyText1.copyWith(color: Colors.white),)),
+                  );
+                } else {
+                  return Container();
+                }
+              }
           )
         ],
 
@@ -116,9 +135,12 @@ class GoodPageState extends State<GoodPage> {
     isPaying.add(true);
     Future.delayed(Duration(seconds: 1)).then((c) {
       isPaying.add(false);
-      RouterService.resolve('buyedGood', {
-        'good': widget.goodItem
-      }, context);
+      isSuccess.add(true);
+      Future.delayed(Duration(milliseconds: 500)).then((c) {
+        RouterService.resolve('buyedGood', {
+          'good': widget.goodItem
+        }, context);
+      });
     });
   }
 

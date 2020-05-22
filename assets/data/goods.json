@@ -6,8 +6,21 @@
       "videoUrl": "",
       "price": 23300,
       "previews": [
+        "https://static.dubheee.cn/Biliflu/22-1.png",
+        "https://static.dubheee.cn/Biliflu/22-2.png",
+        "https://static.dubheee.cn/Biliflu/22-3.png",
+        "https://static.dubheee.cn/Biliflu/22-4.png",
         "https://static.dubheee.cn/Biliflu/2233.png"
-      ]
+      ],
+      "suits": [{
+        "id": "suit02",
+        "name": "放大镜套装",
+        "pic": "https://static.dubheee.cn/Biliflu/22-2.png"
+      }, {
+        "id": "suit02",
+        "name": "干杯套装",
+        "pic": "https://static.dubheee.cn/Biliflu/22-3.png"
+      }]
     },
     {
       "name": "爱蜜莉雅糖虚拟手办",
