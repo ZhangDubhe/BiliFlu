@@ -49,7 +49,7 @@ class GoodPageState extends State<GoodPage> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
                 child: Column(
-                  children: (widget.goodItem?.previews??[]).map((c) => Image.network('$?x-oss-process=style/480h', fit: BoxFit.cover,)).toList(),
+                  children: (widget.goodItem?.previews??[]).map((c) => Image.network('$c?x-oss-process=style/480h', fit: BoxFit.cover,)).toList(),
                 )
               ),
             ],
