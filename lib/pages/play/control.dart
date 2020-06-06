@@ -1,15 +1,20 @@
-import 'dart:io';
-
-import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:xfvoice/xfvoice.dart';
-import 'package:flutter/material.dart';
 import 'package:audio_recorder/audio_recorder.dart';
 
+import 'package:flutter/material.dart';
+
+import 'package:bilibiliflu/global/params.dart';
+
 class ModeruControl extends StatefulWidget {
+  Function(String) actionHandler;
+
+  ModeruControl({
+    this.actionHandler
+  });
+
   @override
   _ModeruControlState createState() => _ModeruControlState();
 }
@@ -27,41 +32,13 @@ class _ModeruControlState extends State<ModeruControl> {
         children: <Widget>[
           _voiceRecognize(),
           SizedBox(height: 10,),
-          StreamBuilder<bool>(
-            stream: isListening,
-            initialData: false,
-            builder: (context, snapshot) {
-              if (snapshot.data) {
-                return RaisedButton(
-                  onPressed: () => stopListen(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.font_download),
-                      Text('END')
-                    ],
-                  ),
-                );
-              }
-              return RaisedButton(
-                onPressed: () => startListen(),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.voice_chat),
-                    Text('TTS')
-                  ],
-                ),
-              );
-            }
-          )
         ],
       ),
     );
   }
 
   String voiceMsg = '暂无数据';
-  String iflyResultString = '按下方块说话';
+  String iflyResultString = '按下方跟我聊天';
 
   XFJsonResult xfResult;
 
@@ -77,40 +54,44 @@ class _ModeruControlState extends State<ModeruControl> {
        print(value);
      });
    }
-    //.contacts.shouldShowRequestRationale;
   }
+
   Future<void> initPlatformState() async {
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-    voice.init(appIdIos: '5edb073a', appIdAndroid: '5edb073a');
+    voice.init(appIdIos: GlobalConfig.xfKey, appIdAndroid: GlobalConfig.xfAndroidKey);
     final param = new XFVoiceParam();
     param.domain = 'iat';
     // param.asr_ptt = '0';   //取消注释可去掉标点符号
     param.asr_audio_path = 'bili/audio.pcm';
     param.result_type = 'json'; //可以设置plain
     final map = param.toMap();
-    map['dwa'] = 'wpgs';        //设置动态修正，开启动态修正要使用json类型的返回格式
+    map['dwa'] = 'wpgs'; //设置动态修正，开启动态修正要使用json类型的返回格式
     voice.setParameter(map);
   }
 
   Widget _voiceRecognize() {
     return  Center(
-      child: GestureDetector(
-        child: Container(
-          child: Center(child: Text(iflyResultString)),
-          width: 300.0,
-          height: 44.0,
-          color: Colors.blueAccent,
+      child: RaisedButton(
+        onPressed: () => print('??'),
+        child: GestureDetector(
+          child: InkWell(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              child: Center(child: Text(iflyResultString,
+                softWrap: true,
+                style: Theme.of(context).textTheme.headline4.copyWith(color: Colors.white),)),
+              width: 300.0,
+            ),
+          ),
+          onTapDown: (d) {
+            setState(() {
+              voiceMsg = '按下';
+            });
+            _recongize();
+          },
+          onTapUp: (d) {
+             _recognizeOver();
+          },
         ),
-        onTapDown: (d) {
-          setState(() {
-            voiceMsg = '按下';
-          });
-          _recongize();
-        },
-        onTapUp: (d) {
-           _recognizeOver();
-        },
       ),
     );
   }
@@ -135,6 +116,7 @@ class _ModeruControlState extends State<ModeruControl> {
             setState(() {
               iflyResultString = xfResult.resultText();
             });
+            detectVoice(iflyResultString);
           }
         },
         onCompleted: (Map<dynamic, dynamic> errInfo, String filePath) {
@@ -176,6 +158,9 @@ class _ModeruControlState extends State<ModeruControl> {
         }
     );
     await initRecord();
+    setState(() {
+      iflyResultString = '...';
+    });
     voice.start(listener: listener).then((void _void) {
       isListening.add(true);
     }).catchError((e) => print(e));
@@ -184,6 +169,14 @@ class _ModeruControlState extends State<ModeruControl> {
   void stopListen() {
     voice.stop();
     isListening.add(false);
+  }
+
+  detectVoice(String input) {
+    Voice.voiceDirect.forEach((String element) {
+      if (input.contains(element)) {
+        widget.actionHandler(element);
+      }
+    });
   }
 
   initRecord() async {

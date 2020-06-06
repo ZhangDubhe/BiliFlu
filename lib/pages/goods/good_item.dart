@@ -1,7 +1,5 @@
 import 'package:bilibiliflu/models/good.dart';
 import 'package:bilibiliflu/global/themes.dart';
-import 'package:bilibiliflu/services/global_service_center.dart';
-import 'package:bilibiliflu/supplyment/cut_border_shape.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -1,9 +1,5 @@
 import 'package:bilibiliflu/global/themes.dart';
-import 'package:bilibiliflu/pages/goods/good_page.dart';
 import 'package:bilibiliflu/pages/home/home.dart';
-import 'package:bilibiliflu/pages/play/play.dart';
-import 'package:bilibiliflu/pages/user_center/orders.dart';
-import 'package:bilibiliflu/pages/web/web.dart';
 import 'package:bilibiliflu/services/global_service_center.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +17,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: '假的会员购',
       theme: GlobalTheme.buildTheme(),
-      home: HomePage(title: 'bilibili会员购'),
+      home: HomePage(title: 'B-Moderu'),
       routes: RouterService.baseRoute,
       navigatorObservers: [routeObserver],
     );

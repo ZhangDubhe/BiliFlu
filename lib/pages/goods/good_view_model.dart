@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bilibiliflu/models/good.dart';
+import 'package:bilibiliflu/services/global_service_center.dart';
 import 'package:flutter/services.dart';
 
 class GoodViewModel {
@@ -13,5 +14,11 @@ class GoodViewModel {
     } catch (e){
       print(e);
     }
+  }
+
+  Future<void> postFrame() {
+    GlobalServiceCenter.http.get('http://10.23.99.14:8080/test').then((value) {
+      print(value);
+    });
   }
 }

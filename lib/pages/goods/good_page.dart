@@ -1,6 +1,8 @@
 import 'package:bilibiliflu/global/themes.dart';
 import 'package:bilibiliflu/models/good.dart';
+import 'package:bilibiliflu/pages/play/music.dart';
 import 'package:bilibiliflu/services/global_service_center.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -17,8 +19,10 @@ class GoodPage extends StatefulWidget {
 }
 
 class GoodPageState extends State<GoodPage> {
+  BehaviorSubject<int> audioIndexState = BehaviorSubject.seeded(0);
   BehaviorSubject<bool> isPaying = BehaviorSubject.seeded(false);
   BehaviorSubject<bool> isSuccess = BehaviorSubject.seeded(false);
+  BehaviorSubject<bool> isPlayAudio = BehaviorSubject.seeded(false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +33,23 @@ class GoodPageState extends State<GoodPage> {
         children: <Widget>[
           ListView(
             children: <Widget>[
-              Container(
-                color: Colors.black12,
-                child: Image.network('${widget.goodItem?.pic}?x-oss-process=style/480h',
-                  fit: BoxFit.contain,
-                  height: 400,
-                ),
+              CarouselSlider(
+                height: MediaQuery.of(context).size.height - 200,
+                viewportFraction: 0.8,
+                enlargeCenterPage: true,
+                items: (widget.goodItem?.previews??[]).map((png) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Image.network('$png?x-oss-process=style/480h',
+                        fit: BoxFit.contain
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+              MusicPlayer(
+                audioIndex: audioIndexState.value,
+                forcePlayState: isPlayAudio,
               ),
               Padding(
                 padding: EdgeInsets.all(20),
@@ -132,10 +147,14 @@ class GoodPageState extends State<GoodPage> {
   }
   
   
-
+  bindChange() {
+    audioIndexState.add(3);
+    isPlayAudio.add(true);
+  }
   buyGoodItem() {
     isPaying.add(true);
-    Future.delayed(Duration(seconds: 1)).then((c) {
+
+    Future.delayed(Duration(seconds: 2)).then((c) {
       isPaying.add(false);
       isSuccess.add(true);
       Future.delayed(Duration(milliseconds: 500)).then((c) {
@@ -151,6 +170,9 @@ class GoodPageState extends State<GoodPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      isPlayAudio.add(true);
+    });
   }
 
   @override

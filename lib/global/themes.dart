@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 
 class GlobalTheme {
+  static Map<int, Color> kPinkSwatch = {
+    50: Color(0xFFFFF0F1),
+    100: Color(0xFFFF9Db5),
+    200: Color(0xFFFB9099),
+    300: Color(0xFFFB8099),
+    400: Color(0xFFFB7599),
+    500: Color(0xFFFB7299),
+    600: Color(0xFFFB3299),
+    700: Color(0xFFFB2299),
+    800: Color(0xFFFB1299),
+    900: Color(0xFFFB0099),
+  };
+  static Color biliPink = MaterialColor(500, kPinkSwatch);
   static ThemeData buildTheme() {
     return ThemeData(
-      primaryColor: Colors.pink,
+      primaryColor: kPinkSwatch[600],
       primarySwatch: Colors.pink,
       buttonTheme: primaryButtonTheme,
       backgroundColor: Colors.white,
@@ -12,7 +25,7 @@ class GlobalTheme {
 
   static ButtonThemeData primaryButtonTheme = ButtonThemeData(
     textTheme: ButtonTextTheme.primary,
-    disabledColor: Colors.pink[100],
+    disabledColor: kPinkSwatch[100],
     height: 44,
     padding: EdgeInsets.all(0)
   );
