@@ -42,7 +42,7 @@ class GoodPageState extends State<GoodPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Text('${widget.goodItem?.name}', style: Theme.of(context).textTheme.subtitle1,),
-                    Text('${widget.goodItem?.name}', style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.pink)),
+                    Text('${widget.goodItem?.desc}', style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.pink)),
                   ],
                 ),
               ),
@@ -89,6 +89,7 @@ class GoodPageState extends State<GoodPage> {
           ),),
           StreamBuilder<Object>(
             stream: isPaying,
+            initialData: false,
             builder: (context, snapshot) {
               if(snapshot.data) {
                 return Center(
@@ -107,6 +108,7 @@ class GoodPageState extends State<GoodPage> {
           ),
           StreamBuilder<Object>(
               stream: isSuccess,
+              initialData: false,
               builder: (context, snapshot) {
                 if(snapshot.data) {
                   return Center(
@@ -137,6 +139,7 @@ class GoodPageState extends State<GoodPage> {
       isPaying.add(false);
       isSuccess.add(true);
       Future.delayed(Duration(milliseconds: 500)).then((c) {
+        isSuccess.add(false);
         RouterService.resolve('buyedGood', {
           'good': widget.goodItem
         }, context);
@@ -153,6 +156,7 @@ class GoodPageState extends State<GoodPage> {
   @override
   void dispose() {
     // TODO: implement dispose
+    isSuccess.add(false);
     super.dispose();
   }
 

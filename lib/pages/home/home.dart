@@ -1,6 +1,7 @@
 import 'package:bilibiliflu/models/good.dart';
 import 'package:bilibiliflu/pages/goods/good_list.dart';
 import 'package:bilibiliflu/pages/goods/good_view_model.dart';
+import 'package:bilibiliflu/pages/play/control.dart';
 import 'package:bilibiliflu/services/global_service_center.dart';
 import 'package:bilibiliflu/widgets/nav_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -63,6 +64,8 @@ class _HomePageState extends State<HomePage> {
               }).toList(),
             ),
           ),
+          SizedBox(height: 10,),
+          ModeruControl(),
           SizedBox(height: 10,),
           _goodList(),
         ],

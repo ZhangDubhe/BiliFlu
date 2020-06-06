@@ -27,16 +27,18 @@ class Good {
   String id;
   int price;
   String name;
+  String desc;
   String pic;
   String videoUrl;
   List<String> previews;
   List<Suit> suits;
 
-  Good.fromParams({this.id, this.price, this.name, this.pic, this.videoUrl, this.previews, this.suits});
+  Good.fromParams({this.id, this.price, this.name, this.desc, this.pic, this.videoUrl, this.previews, this.suits});
 
   Good.fromJson(jsonRes) {
     id = jsonRes['id'];
     price = jsonRes['price'];
+    desc = jsonRes['desc'] ?? '这个手办非常奈斯，可以说话可以跳舞';
     name = jsonRes['name'];
     pic = jsonRes['pic'];
     videoUrl = jsonRes['videoUrl'];
