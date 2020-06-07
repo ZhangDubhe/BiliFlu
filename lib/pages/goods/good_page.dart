@@ -1,3 +1,4 @@
+import 'package:bilibiliflu/global/params.dart';
 import 'package:bilibiliflu/global/themes.dart';
 import 'package:bilibiliflu/models/good.dart';
 import 'package:bilibiliflu/pages/play/music.dart';
@@ -34,14 +35,20 @@ class GoodPageState extends State<GoodPage> {
           ListView(
             children: <Widget>[
               CarouselSlider(
-                height: MediaQuery.of(context).size.height - 200,
+                aspectRatio: 1,
                 viewportFraction: 0.8,
                 enlargeCenterPage: true,
                 items: (widget.goodItem?.previews??[]).map((png) {
                   return Builder(
                     builder: (BuildContext context) {
-                      return Image.network('$png?x-oss-process=style/480h',
-                        fit: BoxFit.contain
+                      return Container(
+                        padding: EdgeInsets.only(bottom: 20, top: 20),
+                        decoration: BoxDecoration(
+                          boxShadow: GlobalTheme.commonShadow(offset: Offset(10, -5))
+                        ),
+                        child: Image.network('$png?x-oss-process=style/480h',
+                          fit: BoxFit.contain
+                        ),
                       );
                     },
                   );
@@ -78,16 +85,10 @@ class GoodPageState extends State<GoodPage> {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width * 3 / 5,
-                  child: Center(
-                    child: SafeArea(child: Text('￥${(widget.goodItem.price ~/ 100)}')),
-                  ),
-                ),
                 Expanded(
                   child: RaisedButton(
                     onPressed: () => buyGoodItem(),
-                    padding: EdgeInsets.only(top: 8, bottom: 8),
+                    padding: EdgeInsets.only(top: 12, bottom: 12),
                       child: Center(child: SafeArea(child: StreamBuilder<Object>(
                         stream: isPaying,
                         initialData: false,
@@ -95,7 +96,7 @@ class GoodPageState extends State<GoodPage> {
                           if (snapshot.data) {
                             return Text('购买中');
                           }
-                          return Text('立即下单！', style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.white),);
+                          return Text('立即下单！', style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),);
                         }
                       )))),
                 ),
@@ -153,11 +154,13 @@ class GoodPageState extends State<GoodPage> {
   }
   buyGoodItem() {
     isPaying.add(true);
-
+    playPaying();
     Future.delayed(Duration(seconds: 2)).then((c) {
       isPaying.add(false);
       isSuccess.add(true);
-      Future.delayed(Duration(milliseconds: 500)).then((c) {
+      playSuccess();
+      isPlayAudio.add(true);
+      Future.delayed(Duration(milliseconds: 1000)).then((c) {
         isSuccess.add(false);
         RouterService.resolve('buyedGood', {
           'good': widget.goodItem
@@ -166,12 +169,28 @@ class GoodPageState extends State<GoodPage> {
     });
   }
 
+  playPreview() {
+//    GlobalServiceCenter.http.get(GlobalConfig.actionUrl, query: GlobalConfig.actionList['preview']).then((value) {
+//      print(value);
+//    });
+  }
+  playPaying() {
+//    GlobalServiceCenter.http.get(GlobalConfig.actionUrl, query: GlobalConfig.actionList['buying']).then((value) {
+//      print(value);
+//    });
+  }
+  playSuccess() {
+//    GlobalServiceCenter.http.get(GlobalConfig.actionUrl, query: GlobalConfig.actionList['hello']).then((value) {
+//      print(value);
+//    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      isPlayAudio.add(true);
+      playPreview();
     });
   }
 

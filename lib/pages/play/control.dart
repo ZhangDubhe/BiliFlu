@@ -173,7 +173,9 @@ class _ModeruControlState extends State<ModeruControl> {
 
   detectVoice(String input) {
     Voice.voiceDirect.forEach((String element) {
+      print(element);
       if (input.contains(element)) {
+        print('successs!!!!');
         widget.actionHandler(element);
       }
     });

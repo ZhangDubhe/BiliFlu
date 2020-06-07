@@ -134,8 +134,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
     });
     if (widget.forcePlayState != null && !widget.forcePlayState.hasListener) {
       widget.forcePlayState.listen((value) {
-        print('ForcePlayState!:::::: $value');
-        play();
+        if (value) {
+          play();
+        }
       });
     }
 

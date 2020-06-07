@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:bilibiliflu/global/params.dart';
+import 'package:bilibiliflu/global/themes.dart';
 import 'package:bilibiliflu/models/good.dart';
 import 'package:bilibiliflu/pages/play/control.dart';
 import 'package:bilibiliflu/pages/play/music.dart';
 import 'package:bilibiliflu/services/global_service_center.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -43,18 +45,14 @@ class BuyGoodItemState extends State<BuyGoodItem> {
             ),
           ),
           // 换装
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text('${widget.goodItem.name}'),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
 //                SizedBox(height: 30,),
 //                (widget.goodItem.suits??[]).length > 0 ? Text('换装', style: Theme.of(context).textTheme.subtitle2,) : Container(),
-                SizedBox(height: 20,),
-                _switchDecoration()
-              ],
-            ),
+              SizedBox(height: 10,),
+              _switchDecoration()
+            ],
           ),
           ModeruControl(
             actionHandler: bindAction,
@@ -84,7 +82,8 @@ class BuyGoodItemState extends State<BuyGoodItem> {
   }
 
   void selectIndex(int index) {
-    audioState.add(9); // 10
+    if (index == 0 )return;
+    audioState.add(8 + index); // 10
     _selectedIndex.add(index - 1);
     Future.delayed(Duration(seconds: 1)).then((value) {
       isPlayAudio.add(true);
@@ -98,7 +97,7 @@ class BuyGoodItemState extends State<BuyGoodItem> {
     print(actionName);
     bool _ux = false;
     switch (actionName) {
-      case '唱首歌':
+      case '歌':
         singSong();
         break;
       case '想什么':
@@ -113,7 +112,7 @@ class BuyGoodItemState extends State<BuyGoodItem> {
       case 'UP':
         _ux = true;
         break;
-      case '深海少女':
+      case '深海':
         singSea();
         break;
       default:
@@ -155,34 +154,53 @@ class BuyGoodItemState extends State<BuyGoodItem> {
       isPlayAudio.add(true);
     });
   }
+  playShow() {
+//    GlobalServiceCenter.http.get(GlobalConfig.actionUrl, query: GlobalConfig.actionList['show']).then((value) {
+//      print(value);
+//    });
+  }
 
   Widget _switchDecoration() {
     int index = 0;
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
-      children: (widget.goodItem.suits??[]).map((e) {
+    return CarouselSlider(
+      aspectRatio: 1.4,
+      viewportFraction: 0.5,
+      enlargeCenterPage: true,
+      enableInfiniteScroll: false,
+      onPageChanged: (c) => selectIndex(c),
+      items: (widget.goodItem.suits??[]).map((e) {
         index++;
-        return GestureDetector(
-          onTap: () => selectIndex(index),
-          child: Column(
-            children: <Widget>[
-              ClipOval(
-                child: Container(
-                  color: Colors.pinkAccent,
-                  padding: EdgeInsets.all(4),
-                  child: ClipOval(
-                    child: Image.network('${e.pic}?x-oss-process=style/480h',
-                      width: 140,
-                      height: 140,
-                      fit: BoxFit.cover,
+        if (e.pic.isEmpty) {
+          return Container(
+            child: Center(child: Text('换一个装扮吧')),
+          );
+        }
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+              padding: EdgeInsets.only(left: 10,right: 10),
+              child: GestureDetector(
+                onTap: () => selectIndex(index),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: GlobalTheme.commonShadow(),
+                        color: Colors.pinkAccent,
+                      ),
+                      padding: EdgeInsets.all(4),
+                      child: Image.network('${e.pic}?x-oss-process=style/480h',
+                        width: 140,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      )
                     ),
-                  ),
+                    Text('${e.name}')
+                  ],
                 ),
               ),
-              Text('${e.name}')
-            ],
-          ),
+            );
+          },
         );
       }).toList(),
     );
@@ -204,6 +222,9 @@ class BuyGoodItemState extends State<BuyGoodItem> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    Future.delayed(Duration(seconds: 1)).then((c) {
+      playShow();
+    });
   }
 
   @override

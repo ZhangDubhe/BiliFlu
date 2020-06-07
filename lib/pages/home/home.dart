@@ -35,6 +35,10 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
         actions: <Widget>[
           IconButton(
+            icon: Icon(Icons.home, color: Colors.white),
+            onPressed: () => Navigator.pushNamed(context, 'bilibili'),
+          ),
+          IconButton(
             icon: Icon(Icons.live_tv, color: Colors.white),
             onPressed: () => Navigator.pushNamed(context, 'bilibili'),
           )
@@ -42,9 +46,6 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView(
         children: <Widget>[
-          MusicPlayer(
-            showMusic: true,
-          ),
 //          Padding(
 //            padding: const EdgeInsets.symmetric(vertical: 12),
 //            child: CarouselSlider(

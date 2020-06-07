@@ -37,7 +37,6 @@ class GoodItemState extends State<GoodItem> {
                 Image.network('${widget.good.pic}?x-oss-process=style/480h',
                   fit: BoxFit.cover,
                   height: widget.gridMode ? 200 : 400,
-                  alignment: Alignment.topCenter,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -47,8 +46,8 @@ class GoodItemState extends State<GoodItem> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      Text('${widget.good.name}', style: Theme.of(context).textTheme.subtitle1, overflow: TextOverflow.ellipsis,),
-                      Text('￥${(widget.good.price ~/ 100)}', style: Theme.of(context).textTheme.bodyText1.copyWith(color: Colors.pinkAccent[100])),
+                      Text('${widget.good.name}', style: Theme.of(context).textTheme.headline6, overflow: TextOverflow.ellipsis,),
+                      Text('￥${(widget.good.price ~/ 100)}', style: Theme.of(context).textTheme.headline6.copyWith(fontWeight: FontWeight.bold,color: Colors.pinkAccent[100])),
                     ],
                   ),
                 )

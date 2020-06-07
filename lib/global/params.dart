@@ -3,6 +3,8 @@ export 'voice.dart';
 class GlobalConfig {
   static String xfKey = '5edb073a';
   static String xfAndroidKey = '5edb073a';
+
+  static String actionUrl = '';
   static Map actionList = {
     "loading": {
       "action": "loading",
@@ -17,7 +19,7 @@ class GlobalConfig {
       "desc": "左看右看"
     },
     "hello": {
-      "action": "buying",
+      "action": "hello",
       "desc": "挥手"
     },
     "show": {
@@ -33,7 +35,7 @@ class GlobalConfig {
       "desc": "装扮上身"
     },
     "listen": {
-      "action": "show",
+      "action": "listen",
       "desc": "聆听"
     },
     "sing": {
