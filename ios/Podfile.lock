@@ -1,6 +1,4 @@
 PODS:
-  - audio_recorder (0.0.1):
-    - Flutter
   - audioplayers (0.0.1):
     - Flutter
   - Flutter (1.0.0)
@@ -24,7 +22,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - audio_recorder (from `.symlinks/plugins/audio_recorder/ios`)
   - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
   - Flutter (from `Flutter`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -38,8 +35,6 @@ DEPENDENCIES:
   - xfvoice (from `.symlinks/plugins/xfvoice/ios`)
 
 EXTERNAL SOURCES:
-  audio_recorder:
-    :path: ".symlinks/plugins/audio_recorder/ios"
   audioplayers:
     :path: ".symlinks/plugins/audioplayers/ios"
   Flutter:
@@ -64,7 +59,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/xfvoice/ios"
 
 SPEC CHECKSUMS:
-  audio_recorder: 8d200bc5ca10f8a5f8121ad1d2fcf49108a0b3bf
   audioplayers: 84f968cea3f2deab00ec4f8ff53358b3c0b3992c
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c

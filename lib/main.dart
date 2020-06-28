@@ -1,4 +1,5 @@
 import 'package:bilibiliflu/global/themes.dart';
+import 'package:bilibiliflu/pages/cyberpunk/index.dart';
 import 'package:bilibiliflu/pages/home/home.dart';
 import 'package:bilibiliflu/services/global_service_center.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: '假的会员购',
       theme: GlobalTheme.buildTheme(),
-      home: HomePage(title: 'B-Moderu'),
+      home: CyberpunkFuture(),
       routes: RouterService.baseRoute,
       navigatorObservers: [routeObserver],
     );

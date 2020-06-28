@@ -2,8 +2,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:xfvoice/xfvoice.dart';
-import 'package:audio_recorder/audio_recorder.dart';
-
 import 'package:flutter/material.dart';
 
 import 'package:bilibiliflu/global/params.dart';
@@ -184,10 +182,6 @@ class _ModeruControlState extends State<ModeruControl> {
   initRecord() async {
     // Check permissions before starting
     // Get the state of the recorder
-    bool isRecording = await AudioRecorder.isRecording;
-    if (isRecording) {
-      await AudioRecorder.stop();
-    }
     await initPermission();
   }
 
